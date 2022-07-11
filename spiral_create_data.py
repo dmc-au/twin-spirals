@@ -40,7 +40,7 @@ if not os.path.exists(image_dir): os.makedirs(image_dir)
 
 filenames = []
 for i in range(0,100):
-    filename = f'{image_dir}plot_{i}.png'
+    filename = f'{image_dir}plot_{i}_.png'
 
     plt.figure(figsize=(7,5), dpi=100)
     plt.scatter(a.iloc[:i,0], a.iloc[:i,1], label='A')
@@ -53,4 +53,4 @@ for i in range(0,100):
     filenames.append(imageio.imread(filename))
 
 imageio.mimsave(f'{image_dir}spiral.gif', filenames, duration=0.1)
-for file in glob.glob(f'{image_dir}*.png'): os.remove(file)
+for file in glob.glob(f'{image_dir}*_.png'): os.remove(file)

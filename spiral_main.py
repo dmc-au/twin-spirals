@@ -114,15 +114,15 @@ for layer in [1,2]:
             plt.scatter(full_input[:,0],full_input[:,1],
                         c=1-full_target[:,0],cmap='RdYlBu')
             filepath = f'{image_dir}{args.net}_{layer}_{node+1}'
-            plt.savefig(f'{filepath}.png')
+            plt.savefig(f'{filepath}_.png')
 
-            filenames.append(imageio.imread(f'{filepath}.png'))
+            filenames.append(imageio.imread(f'{filepath}_.png'))
         
         # Create gif
         imageio.mimsave(f'{filepath}.gif', filenames, duration=1)
 
         # Cleanup .pngs
-        for file in glob.glob(f'{image_dir}*.png'): os.remove(file)
+        for file in glob.glob(f'{image_dir}*_.png'): os.remove(file)
 
 
 # Graph output unit
