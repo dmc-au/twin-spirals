@@ -15,6 +15,7 @@ $$ y = -r * math.sin(φ) $$
 One hundred data points are created for both classes by iteratively updating both the 'r' and 'φ' parameters.
 Points belonging to class A are labeled with a 1, and points belonging to class B are labeled with a 0.
 After the required packages are installed, the data can be created by running the `spiral_create_data.py` script.
+The data is stored in the file `spiral_data.csv`.
 
 By graphing these points, we can see that two spirals are created, one for each class of points. The image is located in the `data_images` folder.
 
