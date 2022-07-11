@@ -1,2 +1,2 @@
-# twin-spirals
-Demonstration of the solving the twin spirals problem with neural networks
+# Twin Spirals
+Solving the twin spiral problems with neural networks.
