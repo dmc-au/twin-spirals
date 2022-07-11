@@ -52,8 +52,10 @@ Hidden layer 2 activitions:
 
 We can see more complex shapes arise in the second hidden layer. This is because nodes in the second layer are able to combine inputs from the first layer, allowing for further abstraction.
 
-Combined activation:
+Final combined activation:
 
 <img src="https://raw.githubusercontent.com/dmc-au/twin-spirals/main/images/raw_out.png" width="500" height="400"/>
 
-We can see in the image above how the network combines all of its nodes to create a map of the input space in order to classify between classes.
+The image above shows how the network combines all of its nodes to create a map of the input space in order to classify between classes. Although the coverage is complete, we can see that the network hasn't grasped that there is an underlying symmetry to leverage.
+
+
