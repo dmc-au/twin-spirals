@@ -39,6 +39,7 @@ ep:  100 loss: 0.1597 acc: 54.00
 ep:  200 loss: 0.0815 acc: 54.50
 ep:  300 loss: 0.0316 acc: 53.00
 ep:  400 loss: 0.0153 acc: 53.50
+...
 ```
 After several thousand epochs, the training accuracy will reach 100%, and 3 images will be created in the `images` folder.
 These images show iteratively how each node in each hidden layer divides up the input space to assist classification.
