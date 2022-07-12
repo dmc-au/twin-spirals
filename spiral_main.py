@@ -12,9 +12,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 import argparse
 import imageio
+from datetime import datetime
+import time
 import os
 import glob
+import logging
 from spiral_models import PolarNet, RawNet, graph_hidden
+
+# Set seed for reproducibility
+torch.manual_seed(42)
 
 # Defines the main training loop
 def train(net, train_loader, optimizer):
@@ -32,8 +38,9 @@ def train(net, train_loader, optimizer):
         accuracy = 100*correct/total
 
     if epoch % 100 == 0:
-        print('ep:%5d loss: %6.4f acc: %5.2f' %
-             (epoch,loss.item(),accuracy))
+        info = 'ep:%5d loss: %6.4f acc: %5.2f' % (epoch,loss.item(),accuracy)
+        logger.info(info)
+        print(info)
 
     return accuracy
 
@@ -64,9 +71,9 @@ def graph_output(net):
 parser = argparse.ArgumentParser()
 parser.add_argument('--net',type=str,default='raw',help='polar or raw')
 parser.add_argument('--init',type=float,default=0.1,help='initial weight size')
-parser.add_argument('--hid',type=int,default='10',help='number of hidden units')
+parser.add_argument('--hid',type=int,default='20',help='number of hidden units')
 parser.add_argument('--lr',type=float,default=0.01,help='learning rate')
-parser.add_argument('--epochs',type=int,default='100000',help='max training epochs')
+parser.add_argument('--epochs',type=int,default='20000',help='max training epochs')
 args = parser.parse_args()
 
 # Read and process the data
@@ -79,13 +86,26 @@ full_input  = data[:,0:num_input]
 full_target = data[:,num_input:num_input+1]
 
 train_dataset = torch.utils.data.TensorDataset(full_input,full_target)
-train_loader  = torch.utils.data.DataLoader(train_dataset,batch_size=97) # TODO: Deafult batch is 97
+train_loader  = torch.utils.data.DataLoader(train_dataset,batch_size=97)
 
 # Determine network structure
 if args.net == 'polar':
     net = PolarNet(args.hid)
+    model = 'PolarNet'
 else:
     net = RawNet(args.hid)
+    model = 'RawNet'
+
+# Set up the logger
+log_dir = 'logs/'
+log_name = f'{model}_training_log.log'
+if not os.path.exists(log_dir): os.makedirs(log_dir)
+log_format = "%(levelname)s %(asctime)s - %(message)s"
+logging.basicConfig(filename=f'{log_dir}{log_name}',
+					filemode='a',
+					format=log_format,
+					level=logging.INFO)
+logger = logging.getLogger()
 
 # Initialise network weight values
 if list(net.parameters()):
@@ -94,13 +114,24 @@ if list(net.parameters()):
 
     # Use Adam optimizer
     optimizer = torch.optim.Adam(net.parameters(),eps=0.000001,lr=args.lr,
-                                 betas=(0.9,0.999),weight_decay=0.0001)
+                                betas=(0.9,0.999),weight_decay=0.0001)
+
+    
+    # Print model info to terminal and log
+    model_info = f'Training {model} model; init={args.init}, hid={args.hid}, lr={args.lr}, epochs={args.epochs}'
+    logger.info(model_info)
+    start = time.time()
+    print(model_info)
 
     # Training loop
     for epoch in range(1, args.epochs):
         accuracy = train(net, train_loader, optimizer)
         if epoch % 100 == 0 and accuracy == 100:
             break
+    end = time.time()
+    timing_info = f'{model} trained with {accuracy}% accuracy after {epoch} epochs in {round(end-start, 2)} seconds'
+    logger.info(timing_info)
+    print(timing_info)
 
 # Graph hidden units
 image_dir = 'images/'
@@ -120,6 +151,9 @@ for layer in [1,2]:
         
         # Create gif
         imageio.mimsave(f'{filepath}.gif', filenames, duration=1)
+        gif_info = f'Saved {filepath}.gif'
+        logger.info(gif_info)
+        print(gif_info)
 
         # Cleanup .pngs
         for file in glob.glob(f'{image_dir}*_.png'): os.remove(file)
@@ -129,4 +163,8 @@ for layer in [1,2]:
 graph_output(net)
 plt.scatter(full_input[:,0],full_input[:,1],
             c=1-full_target[:,0],cmap='RdYlBu')
-plt.savefig(f'{image_dir}{args.net}_out.png')
+png_file = f'{image_dir}{args.net}_out.png'
+plt.savefig(png_file)
+png_info = f'Saved {png_file}'
+logger.info(png_info)
+print(png_info)
