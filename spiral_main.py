@@ -13,8 +13,8 @@ import matplotlib.pyplot as plt
 import argparse
 import imageio
 from datetime import datetime
-import time
 import os
+import time
 import sys
 import glob
 import logging

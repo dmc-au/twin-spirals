@@ -28,8 +28,10 @@ def main():
 
 
     # Write the data points to a CSV file
+    data_dir = 'data/'
+    if not os.path.exists(data_dir): os.makedirs(data_dir)
     filename = 'spiral_data.csv'
-    with open(filename, 'w') as f:
+    with open(f'{data_dir}{filename}', 'w') as f:
         writer = csv.writer(f)
         header = ['x_coord', 'y_coord',	'class']
         writer.writerow(header)
@@ -40,7 +42,7 @@ def main():
 
 
     # Plot the data points as a gif
-    image_dir = 'data_images/'
+    image_dir = 'images/'
     if not os.path.exists(image_dir): os.makedirs(image_dir)
 
     filenames = []
