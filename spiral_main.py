@@ -20,9 +20,11 @@ import glob
 import logging
 from spiral_models import PolarNet, RawNet, graph_hidden
 
+
 def main():
     # Set seed for reproducibility
     torch.manual_seed(42)
+
 
     # Defines the main training loop
     def train(net, train_loader, optimizer):
@@ -44,6 +46,7 @@ def main():
             logger.info(info)
 
         return accuracy
+
 
     # Defines the function that outputs the complete output configuration for the network
     def graph_output(net):
@@ -68,6 +71,7 @@ def main():
                     ), cmap='Wistia'
             )
 
+
     # Definition for command-line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--net',type=str,default='raw',help='polar or raw')
@@ -76,6 +80,7 @@ def main():
     parser.add_argument('--lr',type=float,default=0.01,help='learning rate')
     parser.add_argument('--epochs',type=int,default='20000',help='max training epochs')
     args = parser.parse_args()
+
 
     # Read and process the data
     df = pd.read_csv('spiral_data.csv')
@@ -89,6 +94,7 @@ def main():
     train_dataset = torch.utils.data.TensorDataset(full_input,full_target)
     train_loader  = torch.utils.data.DataLoader(train_dataset,batch_size=97)
 
+
     # Determine network structure
     if args.net == 'polar':
         net = PolarNet(args.hid)
@@ -96,6 +102,7 @@ def main():
     else:
         net = RawNet(args.hid)
         model = 'RawNet'
+
 
     # Set up the logger
     log_dir = 'logs/'
@@ -112,6 +119,7 @@ def main():
     )
     logger = logging.getLogger()
 
+
     # Initialise network weight values
     if list(net.parameters()):
         for m in list(net.parameters()):
@@ -121,7 +129,6 @@ def main():
         optimizer = torch.optim.Adam(net.parameters(),eps=0.000001,lr=args.lr,
                                     betas=(0.9,0.999),weight_decay=0.0001)
 
-        
         # Print model info to terminal and log
         model_info = f'Training {model} model; init={args.init}, hid={args.hid}, lr={args.lr}, epochs={args.epochs}'
         logger.info(model_info)
@@ -136,6 +143,7 @@ def main():
         timing_info = f'{model} trained with {accuracy}% accuracy after {epoch} epochs in {round(end-start, 2)} seconds'
         logger.info(timing_info)
 
+
     # Graph hidden units
     image_dir = 'images/'
     if not os.path.exists(image_dir): os.makedirs(image_dir)
@@ -149,7 +157,6 @@ def main():
                             c=1-full_target[:,0],cmap='RdYlBu')
                 filepath = f'{image_dir}{args.net}_{layer}_{node+1}'
                 plt.savefig(f'{filepath}_.png')
-
                 filenames.append(imageio.imread(f'{filepath}_.png'))
             
             # Create gif
@@ -161,7 +168,7 @@ def main():
             for file in glob.glob(f'{image_dir}*_.png'): os.remove(file)
 
 
-    # Graph output unit
+    # Graph output
     graph_output(net)
     plt.scatter(full_input[:,0],full_input[:,1],
                 c=1-full_target[:,0],cmap='RdYlBu')
@@ -169,6 +176,7 @@ def main():
     plt.savefig(png_file)
     png_info = f'Saved {png_file}'
     logger.info(png_info)
+
 
 if __name__ == '__main__':
     main()

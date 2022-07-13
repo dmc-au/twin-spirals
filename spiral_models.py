@@ -16,6 +16,7 @@ class PolarNet(torch.nn.Module):
         self.tanh = nn.Tanh() # Default model is tanh
         self.sigmoid = nn.Sigmoid()
 
+
     def forward(self, input):
         # Function for switching cartesian to polar
         def xy_to_ra(x, y):
@@ -36,6 +37,7 @@ class PolarNet(torch.nn.Module):
 
         return output
 
+
 # Definition for network that trains on original cartesian points
 class RawNet(torch.nn.Module):
     def __init__(self, num_hid):
@@ -46,6 +48,7 @@ class RawNet(torch.nn.Module):
         self.tanh = nn.Tanh() # Default model is tanh
         self.sigmoid = nn.Sigmoid()
 
+
     def forward(self, input):
         output = self.input(input)
         output = self.tanh(output); self.layer1 = output
@@ -54,6 +57,7 @@ class RawNet(torch.nn.Module):
         output = self.hidden2(output)        
         output = self.sigmoid(output)
         return output
+
 
 # Function to graph hidden node elements from each model
 def graph_hidden(net, layer, node):

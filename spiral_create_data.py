@@ -11,6 +11,7 @@ import imageio
 import csv
 from math import pi, sin, cos
 
+
 def main():
     # Define the data functions
     def spiral_xy(i, spiral_num):
@@ -37,6 +38,7 @@ def main():
             writer.writerow(b.iloc[i,:])
     print(f'Data points written to {filename}')
 
+
     # Plot the data points as a gif
     image_dir = 'data_images/'
     if not os.path.exists(image_dir): os.makedirs(image_dir)
@@ -58,6 +60,7 @@ def main():
     imageio.mimsave(f'{image_dir}spiral.gif', filenames, duration=0.1)
     for file in glob.glob(f'{image_dir}*_.png'): os.remove(file)
     print(f'Saved {image_dir}spiral.gif')
+
 
 if __name__ == '__main__':
     main()
