@@ -5,11 +5,15 @@ This project visually explores how the framing of a problem can dramatically aff
 The project starts with the creation of some data points by according to the following formulae for two classes, A and B:
 
 Class A
+
 $$ x = r * math.cos(φ) $$
+
 $$ y = r * math.sin(φ) $$
 
 Class B
+
 $$ x = -r * math.cos(φ) $$
+
 $$ y = -r * math.sin(φ) $$
 
 One hundred data points are created for both classes by iteratively updating both the 'r' and 'φ' parameters.
