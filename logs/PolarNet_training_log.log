@@ -46,3 +46,27 @@ INFO 2022-07-12 15:31:08,311 - ep: 2000 loss: 0.0015 acc: 100.00
 INFO 2022-07-12 15:31:08,311 - PolarNet trained with 100.0% accuracy after 2000 epochs in 1.64 seconds
 INFO 2022-07-12 15:31:18,112 - Saved images/polar_1_20.gif
 INFO 2022-07-12 15:31:18,575 - Saved images/polar_out.png
+INFO 2022-07-13 12:07:22,949 - Training PolarNet model; init=0.1, hid=20, lr=0.01, epochs=20000
+INFO 2022-07-13 12:07:23,087 - ep:  100 loss: 0.1294 acc: 52.50
+INFO 2022-07-13 12:07:23,169 - ep:  200 loss: 0.0399 acc: 62.50
+INFO 2022-07-13 12:07:23,248 - ep:  300 loss: 0.0125 acc: 67.50
+INFO 2022-07-13 12:07:23,328 - ep:  400 loss: 0.0059 acc: 71.00
+INFO 2022-07-13 12:07:23,407 - ep:  500 loss: 0.0037 acc: 70.00
+INFO 2022-07-13 12:07:23,486 - ep:  600 loss: 0.0028 acc: 70.00
+INFO 2022-07-13 12:07:23,565 - ep:  700 loss: 0.0024 acc: 71.50
+INFO 2022-07-13 12:07:23,644 - ep:  800 loss: 0.0024 acc: 73.00
+INFO 2022-07-13 12:07:23,723 - ep:  900 loss: 0.0026 acc: 75.50
+INFO 2022-07-13 12:07:23,802 - ep: 1000 loss: 0.0022 acc: 75.50
+INFO 2022-07-13 12:07:23,881 - ep: 1100 loss: 0.0021 acc: 75.50
+INFO 2022-07-13 12:07:23,960 - ep: 1200 loss: 0.0020 acc: 75.00
+INFO 2022-07-13 12:07:24,041 - ep: 1300 loss: 0.0019 acc: 75.00
+INFO 2022-07-13 12:07:24,120 - ep: 1400 loss: 0.0021 acc: 75.00
+INFO 2022-07-13 12:07:24,199 - ep: 1500 loss: 0.0023 acc: 80.00
+INFO 2022-07-13 12:07:24,278 - ep: 1600 loss: 0.0025 acc: 88.00
+INFO 2022-07-13 12:07:24,357 - ep: 1700 loss: 0.0024 acc: 90.00
+INFO 2022-07-13 12:07:24,436 - ep: 1800 loss: 0.0024 acc: 92.00
+INFO 2022-07-13 12:07:24,516 - ep: 1900 loss: 0.0020 acc: 99.50
+INFO 2022-07-13 12:07:24,595 - ep: 2000 loss: 0.0015 acc: 100.00
+INFO 2022-07-13 12:07:24,595 - PolarNet trained with 100.0% accuracy after 2000 epochs in 1.65 seconds
+INFO 2022-07-13 12:07:34,665 - Saved images/polar_1_20.gif
+INFO 2022-07-13 12:07:35,142 - Saved images/polar_out.png

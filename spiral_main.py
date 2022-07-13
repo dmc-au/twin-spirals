@@ -15,6 +15,7 @@ import imageio
 from datetime import datetime
 import time
 import os
+import sys
 import glob
 import logging
 from spiral_models import PolarNet, RawNet, graph_hidden
@@ -41,7 +42,6 @@ def main():
         if epoch % 100 == 0:
             info = 'ep:%5d loss: %6.4f acc: %5.2f' % (epoch,loss.item(),accuracy)
             logger.info(info)
-            print(info)
 
         return accuracy
 
@@ -102,10 +102,14 @@ def main():
     log_name = f'{model}_training_log.log'
     if not os.path.exists(log_dir): os.makedirs(log_dir)
     log_format = "%(levelname)s %(asctime)s - %(message)s"
-    logging.basicConfig(filename=f'{log_dir}{log_name}',
-                        filemode='a',
-                        format=log_format,
-                        level=logging.INFO)
+    logging.basicConfig(
+        level=logging.INFO,
+        format=log_format,
+        handlers=[
+            logging.FileHandler(f'{log_dir}{log_name}', mode='a'),
+            logging.StreamHandler(sys.stdout)
+        ]
+    )
     logger = logging.getLogger()
 
     # Initialise network weight values
@@ -121,18 +125,16 @@ def main():
         # Print model info to terminal and log
         model_info = f'Training {model} model; init={args.init}, hid={args.hid}, lr={args.lr}, epochs={args.epochs}'
         logger.info(model_info)
-        start = time.time()
-        print(model_info)
+        start = time.perf_counter()
 
         # Training loop
         for epoch in range(1, args.epochs):
             accuracy = train(net, train_loader, optimizer)
             if epoch % 100 == 0 and accuracy == 100:
                 break
-        end = time.time()
+        end = time.perf_counter()
         timing_info = f'{model} trained with {accuracy}% accuracy after {epoch} epochs in {round(end-start, 2)} seconds'
         logger.info(timing_info)
-        print(timing_info)
 
     # Graph hidden units
     image_dir = 'images/'
@@ -154,7 +156,6 @@ def main():
             imageio.mimsave(f'{filepath}.gif', filenames, duration=1)
             gif_info = f'Saved {filepath}.gif'
             logger.info(gif_info)
-            print(gif_info)
 
             # Cleanup .pngs
             for file in glob.glob(f'{image_dir}*_.png'): os.remove(file)
@@ -168,7 +169,6 @@ def main():
     plt.savefig(png_file)
     png_info = f'Saved {png_file}'
     logger.info(png_info)
-    print(png_info)
 
 if __name__ == '__main__':
     main()

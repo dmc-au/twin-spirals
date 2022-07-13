@@ -27,13 +27,15 @@ def main():
 
 
     # Write the data points to a CSV file
-    with open('spiral_data.csv', 'w') as f:
+    filename = 'spiral_data.csv'
+    with open(filename, 'w') as f:
         writer = csv.writer(f)
         header = ['x_coord', 'y_coord',	'class']
         writer.writerow(header)
         for i in range(len(a)):
             writer.writerow(a.iloc[i,:])
             writer.writerow(b.iloc[i,:])
+    print(f'Data points written to {filename}')
 
     # Plot the data points as a gif
     image_dir = 'data_images/'
@@ -55,6 +57,7 @@ def main():
 
     imageio.mimsave(f'{image_dir}spiral.gif', filenames, duration=0.1)
     for file in glob.glob(f'{image_dir}*_.png'): os.remove(file)
+    print(f'Saved {image_dir}spiral.gif')
 
 if __name__ == '__main__':
     main()
