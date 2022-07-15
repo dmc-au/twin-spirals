@@ -64,4 +64,3 @@ Final combined activation:
 
 The image above shows how the network combines all of its nodes to create a map of the input space in order to classify between classes. Although the coverage is complete, we can see that the network hasn't grasped that there is an underlying symmetry to leverage.
 
-
