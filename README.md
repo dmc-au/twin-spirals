@@ -64,3 +64,7 @@ Final combined activation:
 
 The image above shows how the network combines all of its nodes to create a map of the input space in order to classify between classes. Although the coverage is complete, we can see that the network hasn't grasped that there is an underlying symmetry to leverage.
 
+<<<<<<< HEAD
+=======
+Our next step is to use our knowledge of the symmetry to help a model to learn. The symmetry in the data points is _radial_, so we can remodel the points in polar coordinates prior to training.
+>>>>>>> 28a77d76ecb52b87f25e10cc944aa7dd5b4f127a
