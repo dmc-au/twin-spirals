@@ -23,26 +23,26 @@ The data is stored in the file `spiral_data.csv`.
 
 By graphing these points, we can see that two spirals are created, one for each class of points. The image is located in the `data_images` folder.
 
-<img src="https://raw.githubusercontent.com/dmc-au/twin-spirals/main/data_images/spiral.gif" width="500" height="400"/>
+<img src="https://github.com/dmc-au/twin-spirals/blob/main/images/spiral.gif?raw=true" width="500" height="400"/>
 
 Let's assume that we saw this pattern in a data set naturally, and that we wish to train a neural network which will learn to classify points between the two classes.
 
 The `RawNet` model defined in `spiral_models.py` is a simple neural network with 2 input nodes, 2 hidden layers with as many hidden nodes as the user specifies (we'll use 20), and 1 output node. An illustration of the architecture is as follows:
 
-<img src="https://raw.githubusercontent.com/dmc-au/twin-spirals/main/rawnet.png" width="500" height="400"/>
+<img src="https://github.com/dmc-au/twin-spirals/blob/main/images/rawnet_architecture.png?raw=true" width="500" height="400"/>
 
 The model can be run by submitting the following terminal command from the project folder's directory:
 ```
-python3 spiral_main.py --net 'raw' --hid 20
+python3 spiral_main.py --net 'raw'
 ```
-The `--net` flag tells the script we want to use the `RawNet` model, and the `--hid` flag tells the script to create the model with 20 nodes in each of the 2 hidden layers.
+The `--net` flag tells the script we want to use the `RawNet` model. There are other hyper-parameters which can be passed to the script to adjust the learning process. These are visible as arguments in `spiral_main.py`.
 
 The terminal will show the training status of the model:
 ```
-ep:  100 loss: 0.1597 acc: 54.00
-ep:  200 loss: 0.0815 acc: 54.50
-ep:  300 loss: 0.0316 acc: 53.00
-ep:  400 loss: 0.0153 acc: 53.50
+INFO 2022-07-12 13:16:31,761 - Training RawNet model; init=0.1, hid=20, lr=0.01, epochs=20000
+INFO 2022-07-12 13:16:31,870 - ep:  100 loss: 0.3369 acc: 58.00
+INFO 2022-07-12 13:16:31,969 - ep:  200 loss: 0.0494 acc: 61.00
+INFO 2022-07-12 13:16:32,066 - ep:  300 loss: 0.0158 acc: 60.00
 ...
 ```
 After several thousand epochs, the training accuracy will reach 100%, and 3 images will be created in the `images` folder.
