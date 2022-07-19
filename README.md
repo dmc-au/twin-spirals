@@ -45,7 +45,7 @@ INFO 2022-07-12 13:16:31,969 - ep:  200 loss: 0.0494 acc: 61.00
 INFO 2022-07-12 13:16:32,066 - ep:  300 loss: 0.0158 acc: 60.00
 ...
 ```
-After several thousand epochs, the training accuracy will reach 100%, and 3 images will be created in the `images` folder.
+After around 4000 epochs, the training accuracy will reach 100%, and 3 images will be created in the `images` folder.
 These images show iteratively how each node in each hidden layer divides up the input space to assist classification.
 
 Hidden layer 1 activations:
@@ -64,4 +64,18 @@ Final combined activation:
 
 The image above shows how the network combines all of its nodes to create a map of the input space in order to classify between classes. Although the coverage is complete, we can see that the network hasn't grasped that there is an underlying symmetry to leverage.
 
-Our next step is to use our knowledge of the symmetry to help a model to learn. The symmetry in the data points is _radial_, so we can remodel the points in polar coordinates prior to training.
+Our next step is to use our knowledge of the symmetry to help remodel our task. The symmetry in the data points is _radial_, so with our new network the data will be converted to polar coordinates prior to training. The definition for this model is under `PolarNet` in the `spiral_models.py` file. Note that this network has only one hidden layer, as opposed to the 2 defined in `RawNet`.
+
+We can train this model with the following command from the project folder's directory:
+```
+python3 spiral_main.py --net 'polar'
+```
+
+The terminal will show the training status of the model:
+```
+INFO 2022-07-13 12:07:22,949 - Training PolarNet model; init=0.1, hid=20, lr=0.01, epochs=20000
+INFO 2022-07-13 12:07:23,087 - ep:  100 loss: 0.1294 acc: 52.50
+INFO 2022-07-13 12:07:23,169 - ep:  200 loss: 0.0399 acc: 62.50
+INFO 2022-07-13 12:07:23,248 - ep:  300 loss: 0.0125 acc: 67.50
+```
+This time, the model trains much faster, and reaches 100% accuracy within around 2000 epochs. That's half the amount of time as the first model, `RawNet`, with half as many hidden nodes. 
