@@ -7,6 +7,28 @@ import torch.nn as nn
 import matplotlib.pyplot as plt
 import numpy as np
 
+
+# Definition for network that trains on original cartesian points
+class RawNet(torch.nn.Module):
+    def __init__(self, num_hid):
+        super(RawNet, self).__init__()
+        self.input = nn.Linear(2, num_hid) # Input layer
+        self.hidden1 = nn.Linear(num_hid, num_hid) # First hidden layer
+        self.hidden2 = nn.Linear(num_hid, 1) # Second hidden layer
+        self.tanh = nn.Tanh() # Default model is tanh
+        self.sigmoid = nn.Sigmoid()
+
+
+    def forward(self, input):
+        output = self.input(input)
+        output = self.tanh(output); self.layer1 = output
+        output = self.hidden1(output)
+        output = self.tanh(output); self.layer2 = output
+        output = self.hidden2(output)        
+        output = self.sigmoid(output)
+        return output
+
+
 # Definition for network that first converts cartesian to polar co-ordinates
 class PolarNet(torch.nn.Module):
     def __init__(self, num_hid):
@@ -36,28 +58,6 @@ class PolarNet(torch.nn.Module):
         output = self.sigmoid(output)
 
         return output
-
-
-# Definition for network that trains on original cartesian points
-class RawNet(torch.nn.Module):
-    def __init__(self, num_hid):
-        super(RawNet, self).__init__()
-        self.input = nn.Linear(2, num_hid) # Input layer
-        self.hidden1 = nn.Linear(num_hid, num_hid) # First hidden layer
-        self.hidden2 = nn.Linear(num_hid, 1) # Second hidden layer
-        self.tanh = nn.Tanh() # Default model is tanh
-        self.sigmoid = nn.Sigmoid()
-
-
-    def forward(self, input):
-        output = self.input(input)
-        output = self.tanh(output); self.layer1 = output
-        output = self.hidden1(output)
-        output = self.tanh(output); self.layer2 = output
-        output = self.hidden2(output)        
-        output = self.sigmoid(output)
-        return output
-
 
 # Function to graph hidden node elements from each model
 def graph_hidden(net, layer, node):
