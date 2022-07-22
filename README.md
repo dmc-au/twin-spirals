@@ -81,7 +81,9 @@ INFO 2022-07-13 12:07:23,248 - ep:  300 loss: 0.0125 acc: 67.50
 This time the model trains much faster, and reaches 100% accuracy within around 2000 epochs. That's half the amount of time as the first model, `RawNet`, with half as many hidden nodes. This is the power of having a more suitable representation of the task.
 
 By looking at the hidden node mappings for `PolarNet`, we can see a big difference in how the insput space is mapped:
+
 <img src="https://github.com/dmc-au/twin-spirals/blob/main/images/polar_1_20.gif?raw=true" width="500" height="400"/>
 
 The difference is even more noticable in the graph of the final mapping:
+
 <img src="https://github.com/dmc-au/twin-spirals/blob/main/images/polar_out.png?raw=true" width="500" height="400"/>
