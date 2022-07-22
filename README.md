@@ -66,6 +66,12 @@ The image above shows how the network combines all of its nodes to create a map 
 
 Our next step is to use our knowledge of the symmetry to help remodel our task. The symmetry in the data points is _radial_, so with our new network the data will be converted to polar coordinates prior to training. The definition for this model is under `PolarNet` in the `spiral_models.py` file. Note that this network has only one hidden layer, as opposed to the 2 defined in `RawNet`.
 
+The coordinates are transformed according to the following formulae for each group:
+
+$$ r = \sqrt{x^2+y^2} $$
+
+$$ θ = tan^{-1}(y/x) $$
+
 We can train this model with the following command from the project folder's directory:
 ```
 python3 spiral_main.py --net 'polar'
